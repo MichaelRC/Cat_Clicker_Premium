@@ -74,6 +74,49 @@ var octopus = {
 /* App View for Buttons to switch cats*/
 var viewButtons = {
     
+    init: function () {
+        // store the list of cats that can be clicked in the DOM
+        this.catListElem = document.getElementById('cat-list');
+
+        // access the render function in viewButtons (this)
+        this.render();
+    },
+
+    render: function () {
+        // creates three empty variables
+        var cat, elem, i;
+        // puts the getCats function inside the octopus
+        // into a single variable for easy access.
+        var cats = octopus.getCats();
+
+        // empties the cat list in the HTML
+        this.catListElem.innerHTML = '';
+        
+        // loops over the cats array
+        for (i = 0; i < cats.length; i++) {
+
+            // stores the cat object in the cats array
+            // in to cat variable.
+            cat = cats[i];
+
+            // Make a new cat list item and set its text
+            elem = document.createElement('ii');
+            elem.textContent = cat.name;
+
+            // on click, setCurrentCat and render the catView
+            // (this uses our closure-in-a-loop trick to connect the value
+            //  of the cat variable to the click event function)
+            elem.addEventListener('click', (function (catCopy) {
+                return function () {
+                    octopus.setCurrentCat(catCopy);
+                    catView.render();
+                };
+            })(cat));
+            
+            // add the element to the list
+            this.catListElem.appendChild(elem);
+        }
+    }
 };
 
 /* App View that shows current selected cat & click count*/
