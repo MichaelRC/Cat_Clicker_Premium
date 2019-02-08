@@ -128,7 +128,7 @@ var viewCurrentCat = {
         // and stores it in the DOM
         this.catElem = document.getElementById('cat');
         this.catNameElem = document.getElementById('cats-name');
-        this.catImageElem = document.getElementById('car-img');
+        this.catImageElem = document.getElementById('cat-img');
         this.catCicks = document.getElementById('cat-clicks');
 
         // Basically the same event listener used in the spegetti
