@@ -107,10 +107,14 @@ var viewButtons = {
             // (this uses our closure-in-a-loop trick to connect the value
             //  of the cat variable to the click event function)
             elem.addEventListener('click', (function (catCopy) {
+                // This is a closure to get the eventListener to work
+                // within the for loop.
                 return function () {
                     octopus.setCurrentCat(catCopy);
                     catView.render();
                 };
+            // This is why this is a seperate element from the function
+            // so that it will render outside of the for loop.
             })(cat));
             
             // add the element to the list
