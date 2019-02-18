@@ -67,8 +67,31 @@ var octopus = {
     incrementCounter: function () {
         model.currentCat.clicks++;
         viewCurrentCat.render();
-    }
+    },
 
+    adminDisplay: function () {
+        if (model.adminShow === false) {
+            model.adminShow = true;
+            adminView.show();
+        }
+        else if (model.adminShow === true) {
+            model.adminShow = false;
+            adminView.hide();
+        }
+    },
+
+    adminCancel: function () {
+        adminView.hide();
+    },
+
+    adminSave: function() {
+        model.currentCat.name = adminCatName.value;
+        model.currentCat.imgSrc = adminCatURL.value;
+        model.currentCat.clickCount = adminCatClicks.value;
+        viewButtons.render();
+        viewCurrentCat.render();
+        adminView.hide();
+    }
 };
 
 /* App View for Buttons to switch cats*/
@@ -159,6 +182,42 @@ var viewCurrentCat = {
         this.catImageElem.src = currentCat.imgSrc;
     }
 
+};
+
+var adminView = {
+
+    init: function() {
+        this.adminCatName = document.getElementById("adminCatName");
+        this.adminCatURL = document.getElementById("adminCatURL");
+        this.adminClicks = document.getElementById("adminCatClicks");
+        var admin = document.getElementById("admin");
+
+        this.adminBtn = document.getElementById("adminBtn");
+        this.adminCancel = document.getElementById("adminCancel");
+        this.adminSave = document.getElementById("adminSave");
+
+        this.adminBtn.addEventListener('click', function(){
+            octopus.adminDisplay();
+        });
+
+        this.adminCancel.addEventListener('click', function (){
+            octopus.adminCancel();
+        });
+
+        this.adminSave.addEventListener('click', function(){
+            octopus.adminSave();
+        });
+
+        this.render();
+    },
+
+    render: function() {
+        admin.style.display = 'block';
+    },
+
+    hide: function(){
+        admin.style.display = 'none';
+    }
 };
 
 /* 
